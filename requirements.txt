@@ -1,0 +1,5 @@
+sasl
+caravel
+mysqlclient
+psycopg2
+sqlalchemy-redshift
