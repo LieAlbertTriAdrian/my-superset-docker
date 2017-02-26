@@ -4,32 +4,34 @@ MAINTAINER liealberttriadrian <alberttri23@gmail.com>
 # Install dependencies via apt
 RUN apt-get update && apt-get install -y \
 	libsasl2-dev \
-    libmysqlclient-dev \
 	libpq-dev \
 	postgresql \
 	python-psycopg2
 
 # Initiate the project folder
-RUN mkdir caravel
+RUN mkdir superset
 
 # Install dependencies via pip
-COPY requirements.txt caravel/
-RUN pip install -r caravel/requirements.txt
+COPY requirements.txt superset/
+RUN pip install -r superset/requirements.txt
 
 # Copy admin password details to project folder for fabmanager
-COPY admin.config caravel/
+COPY admin.config superset/
 
 # Create an admin user
-RUN /usr/local/bin/fabmanager create-admin --app caravel < /caravel/admin.config
+RUN /usr/local/bin/fabmanager create-admin --app superset < /superset/admin.config
+
+# Set PYTHONPATH
+RUN export PYTHONPATH=$(pwd)/superset
 
 # Initialize the database
-RUN caravel db upgrade
+RUN superset db upgrade
 
 # Create default roles and permissions
-RUN caravel init
+RUN superset init
 
 # Load some data to play with
-# RUN caravel load_examples
+# RUN superset load_examples
 
 # Start the development web server (default port: 8088)
-CMD caravel runserver -d
+CMD superset runserver -p 8080

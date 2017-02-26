@@ -1,5 +1,4 @@
 sasl
-caravel
-mysqlclient
+superset
 psycopg2
 sqlalchemy-redshift
