@@ -34,4 +34,4 @@ RUN superset init
 # RUN superset load_examples
 
 # Start the development web server (default port: 8088)
-CMD superset runserver -p 8080
+CMD superset runserver -p 8080 -t 300
