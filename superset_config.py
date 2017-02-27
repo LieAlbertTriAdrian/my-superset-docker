@@ -4,7 +4,7 @@
 ROW_LIMIT = 5000
 SUPERSET_WORKERS = 4
 
-SUPERSET_WEBSERVER_PORT = 8088
+SUPERSET_WEBSERVER_PORT = 8080
 #---------------------------------------------------------
 
 #---------------------------------------------------------
@@ -18,7 +18,7 @@ SECRET_KEY = '\2\1thisismyscretkey\1\2\e\y\y\h'
 # superset metadata (slices, connections, tables, dashboards, ...).
 # Note that the connection information to connect to the datasources
 # you want to explore are managed directly in the web UI
-SQLALCHEMY_DATABASE_URI = 'sqlite:////path/to/superset.db'
+SQLALCHEMY_DATABASE_URI = 'postgres://username:password@localhost/mydb'
 
 # The limit of queries fetched for query search
 QUERY_SEARCH_LIMIT = 1000

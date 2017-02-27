@@ -13,16 +13,16 @@ RUN mkdir superset
 
 # Install dependencies via pip
 COPY requirements.txt superset/
-RUN pip install -r superset/requirements.txt
-
-# Copy admin password details to project folder for fabmanager
-COPY admin.config superset/
-
-# Create an admin user
-RUN /usr/local/bin/fabmanager create-admin --app superset < /superset/admin.config
+RUN pip install --upgrade -r superset/requirements.txt
 
 # Set PYTHONPATH
-RUN export PYTHONPATH=$(pwd)/superset
+ENV PYTHONPATH="/superset"
+
+# Create an admin user
+RUN /usr/local/bin/fabmanager create-admin --app superset --username "admin" --password "albert" --firstname "Lie" --lastname "Adrian" --email "alberttri23@gmail.com"
+
+# Copy superset configuration
+COPY superset_config.py superset/
 
 # Initialize the database
 RUN superset db upgrade
@@ -33,5 +33,5 @@ RUN superset init
 # Load some data to play with
 # RUN superset load_examples
 
-# Start the development web server (default port: 8088)
-CMD superset runserver -p 8080 -t 300
+# Start the development web server
+CMD superset runserver -p 8080 -t 600
